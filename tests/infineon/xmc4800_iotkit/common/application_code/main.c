@@ -26,7 +26,6 @@
 #include <string.h>
 
 #include "console_io.h"
-#include "entropy_hardware.h"
 
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
@@ -41,6 +40,10 @@
 #include "aws_wifi.h"
 #include "aws_clientcredential.h"
 #include "aws_dev_mode_key_provisioning.h"
+
+/* OPTIGA(TM) Trust X HW Security element includes */
+/* This relative path is valid only for DAVE, as it can't find this header in a virtual folder */
+#include "../../aws_optiga_trust_x.h"
 
 /* Logging Task Defines. */
 #define mainLOGGING_MESSAGE_QUEUE_LENGTH    ( 15 )
@@ -114,16 +117,12 @@ int main( void )
 static void prvMiscInitialization( void )
 {
 	CONSOLE_IO_Init();
-
-	ENTROPY_HARDWARE_Init();
 }
 /*-----------------------------------------------------------*/
 
 void vApplicationDaemonTaskStartupHook( void )
 {
-    /* FIX ME: Perform any hardware initialization, that require the RTOS to be
-     * running, here. */
-    vDevModeKeyProvisioning();
+	OPTIGA_TrustXInit();
 
     /* FIX ME: If your MCU is using Wi-Fi, delete surrounding compiler directives to 
      * enable the unit tests and after MQTT, Bufferpool, and Secure Sockets libraries 
@@ -132,16 +131,19 @@ void vApplicationDaemonTaskStartupHook( void )
         if( SYSTEM_Init() == pdPASS )
         {
             /* Connect to the Wi-Fi before running the tests. */
-            prvWifiConnect();
-
-            /* Create the task to run unit tests. */
-            xTaskCreate( TEST_RUNNER_RunTests_task,
-                         "RunTests_task",
-                         mainTEST_RUNNER_TASK_STACK_SIZE,
-                         NULL,
-                         tskIDLE_PRIORITY,
-                         NULL );
+            //prvWifiConnect();
         }
+}
+
+void vApplicationHWSecReadyHook( void )
+{
+    /* Create the task to run unit tests. */
+    xTaskCreate( TEST_RUNNER_RunTests_task,
+                 "RunTests_task",
+                 mainTEST_RUNNER_TASK_STACK_SIZE,
+                 NULL,
+                 tskIDLE_PRIORITY,
+                 NULL );
 }
 /*-----------------------------------------------------------*/
 
