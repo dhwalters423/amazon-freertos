@@ -33,7 +33,7 @@
 #define _AWS_PKCS11_CONFIG_H_
 
 /* A non-standard version of C_INITIALIZE should be used by this port. */
-#define pkcs11configC_INITIALIZE_ALT
+//#define pkcs11configC_INITIALIZE_ALT
 
 /**
  * @brief PKCS #11 default user PIN.
@@ -89,7 +89,7 @@
  * Private key for connection to AWS IoT endpoint.  The corresponding
  * public key should be registered with the AWS IoT endpoint.
  */
-#define pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS       "0xE0EF"
+#define pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS       "0xE0F2"
 
 /**
  * @brief The PKCS #11 label for device public key.

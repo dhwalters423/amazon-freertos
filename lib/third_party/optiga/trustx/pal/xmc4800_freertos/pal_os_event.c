@@ -59,7 +59,8 @@ typedef struct callbacks {
 static TimerHandle_t otxTimer[MAX_CALLBACKS];
 static pal_os_event_clbs_t clbs[MAX_CALLBACKS];
 
-QueueHandle_t xQueueCallbacks;
+QueueHandle_t xQueueCallbacks = NULL;
+TaskHandle_t xCallbackTaskHandle = NULL;
 
 /**
 *  Timer callback handler. 
@@ -133,7 +134,6 @@ pal_status_t pal_os_event_init(void)
 {
 	uint8_t i = 0;
 	char tmr_name[10];
-	TaskHandle_t xHandle = NULL;
 
 	for (i = 0; i < MAX_CALLBACKS; i++)
 	{
@@ -157,16 +157,22 @@ pal_status_t pal_os_event_init(void)
 
 	}
 
-	/* Create a queue capable of containing MAX_CALLBACKS timers id values. */
-	xQueueCallbacks = xQueueCreate( MAX_CALLBACKS, sizeof( pal_os_event_clbs_t ) );
+	if (xQueueCallbacks == NULL)
+	{
+		/* Create a queue capable of containing MAX_CALLBACKS timers id values. */
+		xQueueCallbacks = xQueueCreate( MAX_CALLBACKS, sizeof( pal_os_event_clbs_t ) );
+	}
 
-	/* Create the handler for the callbacks. */
-	xTaskCreate( vTaskCallbackHandler,       /* Function that implements the task. */
-				"ClbksHndlr",          /* Text name for the task. */
-				configMINIMAL_STACK_SIZE*5,      /* Stack size in words, not bytes. */
-				NULL,    /* Parameter passed into the task. */
-				5,/* Priority at which the task is created. */
-				&xHandle );      /* Used to pass out the created task's handle. */
+	if (xCallbackTaskHandle == NULL)
+	{
+		/* Create the handler for the callbacks. */
+		xTaskCreate( vTaskCallbackHandler,       /* Function that implements the task. */
+					"ClbksHndlr",          /* Text name for the task. */
+					configMINIMAL_STACK_SIZE*5,      /* Stack size in words, not bytes. */
+					NULL,    /* Parameter passed into the task. */
+					5,/* Priority at which the task is created. */
+					&xCallbackTaskHandle );      /* Used to pass out the created task's handle. */
+	}
 
 
 	return PAL_STATUS_SUCCESS;

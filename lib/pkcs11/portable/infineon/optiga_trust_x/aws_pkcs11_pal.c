@@ -49,8 +49,12 @@
 
 /* C runtime includes. */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
+#include "optiga/optiga_util.h"
+#include "optiga/comms/optiga_comms.h"
+#include "optiga/ifx_i2c/ifx_i2c_config.h"
 
 #define pkcs11OBJECT_CERTIFICATE_MAX_SIZE    2048
 
@@ -112,7 +116,7 @@ CK_OBJECT_HANDLE PKCS11_PAL_SaveObject( CK_ATTRIBUTE_PTR pxLabel,
 
         	lOptigaOid = strtol(pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS, &xEnd, 16);
 
-        	if ( (0 != lOptigaOid) && (USHRT_MAX < usOptigaOid) && (USHRT_MAX < ulDataSize))
+        	if ( (0 != lOptigaOid) && (USHRT_MAX > lOptigaOid) && (USHRT_MAX > ulDataSize))
         	{
 				xReturn = optiga_util_write_data((uint16_t)lOptigaOid,
 												 OPTIGA_UTIL_ERASE_AND_WRITE,
@@ -129,6 +133,8 @@ CK_OBJECT_HANDLE PKCS11_PAL_SaveObject( CK_ATTRIBUTE_PTR pxLabel,
         {
             /* This operation isn't supported for the OPTIGA(TM) Trust X due to a security considerations
              * You can only generate a keypair and export a private component if you like */
+        	/* We do assign a handle though, as the AWS can#t handle the lables without having a handle*/
+        	xHandle = eAwsDevicePrivateKey;
         }
         else if( 0 == memcmp( pxLabel->pValue,
                               &pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
@@ -143,7 +149,7 @@ CK_OBJECT_HANDLE PKCS11_PAL_SaveObject( CK_ATTRIBUTE_PTR pxLabel,
              */
         	lOptigaOid = strtol(pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS, &xEnd, 16);
 
-        	if ( (0 != lOptigaOid) && (USHRT_MAX < lOptigaOid) && (USHRT_MAX < ulDataSize))
+        	if ( (0 != lOptigaOid) && (USHRT_MAX >= lOptigaOid) && (USHRT_MAX >= ulDataSize))
         	{
 				xReturn = optiga_util_write_data((uint16_t)lOptigaOid,
 												 OPTIGA_UTIL_ERASE_AND_WRITE,
@@ -167,7 +173,7 @@ CK_OBJECT_HANDLE PKCS11_PAL_SaveObject( CK_ATTRIBUTE_PTR pxLabel,
              */
         	lOptigaOid = strtol(pkcs11configLABEL_CODE_VERIFICATION_KEY, &xEnd, 16);
 
-        	if ( (0 != lOptigaOid) && (USHRT_MAX < lOptigaOid) && (USHRT_MAX < ulDataSize))
+        	if ( (0 != lOptigaOid) && (USHRT_MAX > lOptigaOid) && (USHRT_MAX > ulDataSize))
         	{
 				xReturn = optiga_util_write_data((uint16_t)lOptigaOid,
 												 OPTIGA_UTIL_ERASE_AND_WRITE,
@@ -219,6 +225,8 @@ CK_OBJECT_HANDLE PKCS11_PAL_FindObject( uint8_t * pLabel,
     {
         /* This operation isn't supported for the OPTIGA(TM) Trust X due to a security considerations
          * You can only generate a keypair and export a private component if you like */
+    	/* We do assign a handle though, as the AWS can#t handle the lables without having a handle*/
+    	xHandle = eAwsDevicePrivateKey;
     }
     else if( 0 == memcmp( pLabel,
                           &pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
@@ -266,13 +274,17 @@ CK_RV PKCS11_PAL_GetObjectValue( CK_OBJECT_HANDLE xHandle,
                                  uint32_t * pulDataSize,
                                  CK_BBOOL * pIsPrivate )
 {
-    CK_RV                ulReturn = CKR_OK;
+	CK_RV                ulReturn = CKR_OK;
     optiga_lib_status_t  xReturn;
     long                 lOptigaOid = 0;
     char*                xEnd = NULL;
     uint8_t              xOffset = 0;
 
     *pIsPrivate = CK_FALSE;
+
+    *ppucData = pvPortMalloc( 1200 );
+    *pulDataSize = 1200;
+
 
     switch (xHandle) {
     case eAwsDeviceCertificate:
@@ -294,7 +306,7 @@ CK_RV PKCS11_PAL_GetObjectValue( CK_OBJECT_HANDLE xHandle,
     	break;
     }
 
-    if ( (0 != lOptigaOid) && (USHRT_MAX < lOptigaOid) &&
+    if ( (0 != lOptigaOid) && (USHRT_MAX > lOptigaOid) &&
          (NULL != *ppucData) && (NULL != pulDataSize))
     {
 
@@ -328,31 +340,9 @@ void PKCS11_PAL_GetObjectValueCleanup( uint8_t * pucData,
     ( void ) pucData;
     ( void ) ulDataSize;
 
+    vPortFree( pucData );
+
     /* Since no buffer was allocated on heap, there is no cleanup
      * to be done. */
 }
 /*-----------------------------------------------------------*/
-
-
-/**
- * @brief Initialize the Cryptoki module for use.
- *
- * Overrides the implementation of C_Initialize in
- * aws_pkcs11_mbedtls.c when pkcs11configC_INITIALIZE_ALT
- * is defined.
- */
-#ifndef pkcs11configC_INITIALIZE_ALT
-    #error XMC4800 requires alternate C_Initialization
-#endif
-
-CK_DEFINE_FUNCTION( CK_RV, C_Initialize )( CK_VOID_PTR pvInitArgs )
-{   /*lint !e9072 It's OK to have different parameter name. */
-    ( void ) ( pvInitArgs );
-
-    CK_RV xResult = CKR_OK;
-
-    /* Ensure that the FreeRTOS heap is used. */
-    CRYPTO_ConfigureHeap();
-
-    return xResult;
-}
