@@ -227,16 +227,6 @@
 			<locationURI>AFR_HOME/lib/crypto/aws_crypto.c</locationURI>
 		</link>
 		<link>
-			<name>lib/aws/pkcs11/aws_optiga_trust_x.c</name>
-			<type>1</type>
-			<locationURI>AFR_HOME/lib/pkcs11/optigatrust/aws_optiga_trust_x.c</locationURI>
-		</link>
-		<link>
-			<name>lib/aws/pkcs11/aws_optiga_trust_x.h</name>
-			<type>1</type>
-			<locationURI>AFR_HOME/lib/pkcs11/optigatrust/aws_optiga_trust_x.h</locationURI>
-		</link>
-		<link>
 			<name>lib/aws/pkcs11/aws_pkcs11.c</name>
 			<type>1</type>
 			<locationURI>AFR_HOME/lib/pkcs11/aws_pkcs11.c</locationURI>
@@ -292,14 +282,9 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>lib/third_party/optiga/trustx/aws_optiga_trust_x.c</name>
-			<type>1</type>
-			<locationURI>AFR_HOME/lib/third_party/optiga/trustx/aws_optiga_trust_x.c</locationURI>
-		</link>
-		<link>
-			<name>lib/third_party/optiga/trustx/aws_optiga_trust_x.h</name>
-			<type>1</type>
-			<locationURI>AFR_HOME/lib/third_party/optiga/trustx/aws_optiga_trust_x.h</locationURI>
+			<name>lib/third_party/optiga/trustx/ecdsa_utils</name>
+			<type>2</type>
+			<locationURI>AFR_HOME/lib/third_party/optiga/trustx/examples/ecdsa_utils</locationURI>
 		</link>
 		<link>
 			<name>lib/third_party/optiga/trustx/mbedtls_port</name>
