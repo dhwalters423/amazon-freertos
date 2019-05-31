@@ -330,6 +330,8 @@ TEST_GROUP_RUNNER( Full_DEFENDER )
      * - verify metrics report has correct content respectively in both times
      */
     RUN_TEST_CASE( Full_DEFENDER, Restart_and_updated_metrics_are_published );
+
+    configPRINTF(("Min heap size %ld \n", xPortGetMinimumEverFreeHeapSize()));
 }
 
 TEST( Full_DEFENDER, SetMetrics_with_invalid_metrics_group )
