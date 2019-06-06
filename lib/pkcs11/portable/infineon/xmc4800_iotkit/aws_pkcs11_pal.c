@@ -90,6 +90,9 @@ static P11KeyConfig_t P11KeyConfig;
 
 static E_EEPROM_XMC4_t e_eeprom;
 
+
+optiga_comms_t optiga_comms = {(void*)&ifx_i2c_context_0,NULL,NULL, OPTIGA_COMMS_SUCCESS};
+
 /*-----------------------------------------------------------*/
 
 /**
@@ -356,7 +359,6 @@ void PKCS11_PAL_GetObjectValueCleanup( uint8_t * pucData,
 }
 /*-----------------------------------------------------------*/
 
-extern CK_RV prvMbedTLS_Initialize( void );
 
 /**
  * @brief Initialize the Cryptoki module for use.
@@ -383,11 +385,6 @@ CK_DEFINE_FUNCTION( CK_RV, C_Initialize )( CK_VOID_PTR pvInitArgs )
     if( E_EEPROM_XMC4_IsFlashEmpty() == false )
     {
         E_EEPROM_XMC4_ReadArray( 0, ( uint8_t * const ) &P11KeyConfig, sizeof( P11KeyConfig_t ) );
-    }
-
-    if( xResult == CKR_OK )
-    {
-        xResult = prvMbedTLS_Initialize();
     }
 
     return xResult;

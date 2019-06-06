@@ -177,6 +177,11 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
+			<name>lib/third_party/optiga</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
 			<name>lib/third_party/pkcs11</name>
 			<type>2</type>
 			<locationURI>AFR_HOME/lib/third_party/pkcs11</locationURI>
@@ -227,14 +232,14 @@
 			<locationURI>AFR_HOME/lib/pkcs11/aws_pkcs11.c</locationURI>
 		</link>
 		<link>
-			<name>lib/aws/pkcs11/aws_pkcs11_mbedtls.c</name>
-			<type>1</type>
-			<locationURI>AFR_HOME/lib/pkcs11/mbedtls/aws_pkcs11_mbedtls.c</locationURI>
-		</link>
-		<link>
 			<name>lib/aws/pkcs11/aws_pkcs11_pal.c</name>
 			<type>1</type>
-			<locationURI>AFR_HOME/lib/pkcs11/portable/infineon/xmc4800_iotkit/aws_pkcs11_pal.c</locationURI>
+			<locationURI>AFR_HOME/lib/pkcs11/portable/infineon/optiga_trust_x/aws_pkcs11_pal.c</locationURI>
+		</link>
+		<link>
+			<name>lib/aws/pkcs11/aws_pkcs11_trustx.c</name>
+			<type>1</type>
+			<locationURI>AFR_HOME/lib/pkcs11/optigatrust/aws_pkcs11_trustx.c</locationURI>
 		</link>
 		<link>
 			<name>lib/aws/secure_sockets/aws_secure_sockets.c</name>
@@ -270,6 +275,36 @@
 			<name>lib/third_party/mbedtls/library</name>
 			<type>2</type>
 			<locationURI>AFR_HOME/lib/third_party/mbedtls/library</locationURI>
+		</link>
+		<link>
+			<name>lib/third_party/optiga/trustx</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>lib/third_party/optiga/trustx/ecdsa_utils</name>
+			<type>2</type>
+			<locationURI>AFR_HOME/lib/third_party/optiga/trustx/examples/ecdsa_utils</locationURI>
+		</link>
+		<link>
+			<name>lib/third_party/optiga/trustx/mbedtls_port</name>
+			<type>2</type>
+			<locationURI>AFR_HOME/lib/third_party/optiga/trustx/examples/mbedtls_port</locationURI>
+		</link>
+		<link>
+			<name>lib/third_party/optiga/trustx/optiga</name>
+			<type>2</type>
+			<locationURI>AFR_HOME/lib/third_party/optiga/trustx/optiga</locationURI>
+		</link>
+		<link>
+			<name>lib/third_party/optiga/trustx/pal</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>lib/third_party/optiga/trustx/pal/xmc4800_freertos</name>
+			<type>2</type>
+			<locationURI>AFR_HOME/lib/third_party/optiga/trustx/pal/xmc4800_freertos</locationURI>
 		</link>
 	</linkedResources>
 	<filteredResources>

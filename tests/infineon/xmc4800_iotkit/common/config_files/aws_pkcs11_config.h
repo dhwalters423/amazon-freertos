@@ -33,7 +33,7 @@
 #define _AWS_PKCS11_CONFIG_H_
 
 /* A non-standard version of C_INITIALIZE should be used by this port. */
-#define pkcs11configC_INITIALIZE_ALT
+//#define pkcs11configC_INITIALIZE_ALT
 
 /**
  * @brief PKCS #11 default user PIN.
@@ -89,28 +89,28 @@
  * Private key for connection to AWS IoT endpoint.  The corresponding
  * public key should be registered with the AWS IoT endpoint.
  */
-#define pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS       "Device Priv TLS Key"
+#define pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS       "0xE0F2"
 
 /**
  * @brief The PKCS #11 label for device public key.
  *
  * The public key corresponding to pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS.
  */
-#define pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS        "Device Pub TLS Key"
+#define pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS        "0xF1D0"
 
 /**
  * @brief The PKCS #11 label for the device certificate.
  *
  * Device certificate corresponding to pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS.
  */
-#define pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS       "Device Cert"
+#define pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS       "0xE0E2"
 
 /**
  * @brief The PKCS #11 label for the object to be used for code verification.
  *
  * Used by over-the-air update code to verify an incoming signed image.
  */
-#define pkcs11configLABEL_CODE_VERIFICATION_KEY            "Code Verify Key"
+#define pkcs11configLABEL_CODE_VERIFICATION_KEY            "0xE0EF"
 
 /**
  * @brief The PKCS #11 label for Just-In-Time-Provisioning.
@@ -126,6 +126,6 @@
  *
  * @see aws_default_root_certificates.h
  */
-#define pkcs11configLABEL_ROOT_CERTIFICATE                 "Root Cert"
+#define pkcs11configLABEL_ROOT_CERTIFICATE                 "0xE0E8"
 
 #endif /* _AWS_PKCS11_CONFIG_H_ include guard. */

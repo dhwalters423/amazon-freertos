@@ -26,7 +26,7 @@
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.GNU_ELF" id="com.ifx.xmc4000.targetPlatform.317830267" isAbstract="false" name="Windows Platform" osList="win32" superClass="com.ifx.xmc4000.targetPlatform"/>
 							<builder buildPath="${workspace_loc:/dave4}/Debug" id="com.ifx.XMC4000.toolchainBuilder.1301801097" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="XMC Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.ifx.XMC4000.toolchainBuilder"/>
 							<tool id="com.ifx.xmc4000.appDebug.compiler.268429070" name="ARM-GCC C Compiler" superClass="com.ifx.xmc4000.appDebug.compiler">
-								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.optimization.level.2044193130" name="Optimization level" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="org.eclipse.cdt.cross.arm.gnu.base.option.optimization.level.optimize" valueType="enumerated"/>
+								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.optimization.level.2044193130" name="Optimization level" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="org.eclipse.cdt.cross.arm.gnu.base.option.optimization.level.none" valueType="enumerated"/>
 								<option id="com.ifx.xmc4000.compiler.option.misc.mfloat.1517610586" name="Floating point" superClass="com.ifx.xmc4000.compiler.option.misc.mfloat" useByScannerDiscovery="false" value="org.eclipse.cdt.cross.arm.gnu.base.option.other.mfloat.softfp" valueType="enumerated"/>
 								<option id="com.ifx.xmc4000.compiler.option.include.paths.898122737" name="Include paths (-I)" superClass="com.ifx.xmc4000.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
@@ -44,10 +44,25 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib/third_party/mbedtls/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib/third_party/pkcs11}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib/third_party/jsmn}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib/third_party/optiga/trustx/optiga/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib/third_party/optiga/trustx/pal/xmc4800_freertos/timer}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib/third_party/optiga/trustx/pal/xmc4800_freertos/i2c_master_dave}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib/third_party/optiga/trustx/pal/xmc4800_freertos/global_ccu4}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib/third_party/optiga/trustx/pal/xmc4800_freertos/interrupt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib/third_party/optiga/trustx/pal/xmc4800_freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib/third_party/optiga/trustx/ecdsa_utils}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib/aws/pkcs11}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/config_files}&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.preprocessor.def.2079822681" name="Defined symbols (-D)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="XMC4800_F100x2048"/>
+									<listOptionValue builtIn="false" value="USE_OPTIGA_TRUST_X"/>
+									<listOptionValue builtIn="false" value="USE_CMDLIB_WITH_RTOS"/>
+									<listOptionValue builtIn="false" value="PAL_OS_HAS_EVENT_INIT"/>
+									<listOptionValue builtIn="false" value="MBEDTLS_ECDH_COMPUTE_SHARED_ALT"/>
+									<listOptionValue builtIn="false" value="MBEDTLS_ECDH_GEN_PUBLIC_ALT"/>
+									<listOptionValue builtIn="false" value="MBEDTLS_ECDSA_VERIFY_ALT"/>
+									<listOptionValue builtIn="false" value="MBEDTLS_ECDSA_SIGN_ALT"/>
 									<listOptionValue builtIn="false" value="UNITY_INCLUDE_CONFIG_H"/>
 									<listOptionValue builtIn="false" value="AMAZON_FREERTOS_ENABLE_UNIT_TESTS"/>
 								</option>
@@ -171,6 +186,7 @@
 							<option id="com.ifx.xmc4000.option.targetPath.1646170669.507779456" name="Target Path" superClass="com.ifx.xmc4000.option.targetPath.1646170669"/>
 							<option id="com.ifx.xmc4000.option.target.fpu.1870175025.460713754" name="Fpu (-mfpu)" superClass="com.ifx.xmc4000.option.target.fpu.1870175025"/>
 							<option id="com.ifx.xmc4000.option.targetName.1940352133.564627606" name="Target Name" superClass="com.ifx.xmc4000.option.targetName.1940352133"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.GNU_ELF" id="com.ifx.xmc4000.targetPlatform" isAbstract="false" name="Windows Platform" osList="win32" superClass="com.ifx.xmc4000.targetPlatform"/>
 							<tool id="com.ifx.xmc4000.appDebug.compiler.525437433" name="ARM-GCC C Compiler" superClass="com.ifx.xmc4000.appDebug.compiler.268429070">
 								<inputType id="org.eclipse.cdt.cross.arm.gnu.sourcery.windows.c.compiler.base.input.1737094505" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.windows.c.compiler.base.input"/>
 							</tool>
@@ -222,10 +238,10 @@
 		<project-mappings/>
 	</storageModule>
 	<storageModule moduleId="refreshScope" versionNumber="2">
-		<configuration configurationName="Release">
+		<configuration configurationName="Debug">
 			<resource resourceType="PROJECT" workspacePath="/aws_tests"/>
 		</configuration>
-		<configuration configurationName="Debug">
+		<configuration configurationName="Release">
 			<resource resourceType="PROJECT" workspacePath="/aws_tests"/>
 		</configuration>
 	</storageModule>

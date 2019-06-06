@@ -26,7 +26,6 @@
 #include <string.h>
 
 #include "console_io.h"
-#include "entropy_hardware.h"
 
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
@@ -114,16 +113,12 @@ int main( void )
 static void prvMiscInitialization( void )
 {
 	CONSOLE_IO_Init();
-
-	ENTROPY_HARDWARE_Init();
 }
 /*-----------------------------------------------------------*/
 
 void vApplicationDaemonTaskStartupHook( void )
 {
-    /* FIX ME: Perform any hardware initialization, that require the RTOS to be
-     * running, here. */
-    vDevModeKeyProvisioning();
+	//OPTIGA_TrustXInit();
 
     /* FIX ME: If your MCU is using Wi-Fi, delete surrounding compiler directives to 
      * enable the unit tests and after MQTT, Bufferpool, and Secure Sockets libraries 
@@ -132,7 +127,7 @@ void vApplicationDaemonTaskStartupHook( void )
         if( SYSTEM_Init() == pdPASS )
         {
             /* Connect to the Wi-Fi before running the tests. */
-            prvWifiConnect();
+            //prvWifiConnect();
 
             /* Create the task to run unit tests. */
             xTaskCreate( TEST_RUNNER_RunTests_task,
